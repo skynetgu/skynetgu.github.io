@@ -29,8 +29,10 @@ jobs:
             mkdir -p /home/circleci/.ssh
             chmod 777 /home/circleci/.ssh
       - run:
-          name: know host
+          name: known host
           command: echo "skynet.red,114.55.64.150 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJhyXbWvaqsX1mO0J92CZlqcznkKHeXQrwZ+whAVSlfTMh5IQ0PArX6za15K1cXS9O44Zy5RI51/SQZ1J93GtZA=" > /home/circleci/.ssh/known_hosts
       - run:
           name: deploy over ssh
-          command: scp -r _site skynet@skynet.red:blogs
+          command: |
+            ssh skynet@skynet.red "rm -r ~skynet/blogs/*"
+            scp -r _site/* skynet@skynet.red:blogs
