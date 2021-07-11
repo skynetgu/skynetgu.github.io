@@ -1,0 +1,36 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: cimg/ruby:3.0.2
+
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "b8:e6:2d:61:69:2e:ec:62:41:68:0d:ba:3c:08:fd:ad"
+      - run: gem install bundler
+      - run:
+          name: Which bundler?
+          command: bundle -v
+      - run:
+          name: build
+          command: bundle install
+      - run:
+          name: build
+          command: jekyll build
+      - run:
+          name: list
+          command: ls -al _site
+      - run:
+          name: create skynet
+          command: | 
+            mkdir -p /home/circleci/.ssh
+            chmod 777 /home/circleci/.ssh
+      - run:
+          name: know host
+          command: echo "skynet.red,114.55.64.150 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJhyXbWvaqsX1mO0J92CZlqcznkKHeXQrwZ+whAVSlfTMh5IQ0PArX6za15K1cXS9O44Zy5RI51/SQZ1J93GtZA=" > /home/circleci/.ssh/known_hosts
+      - run:
+          name: deploy over ssh
+          command: scp -r _site skynet@skynet.red:blogs
