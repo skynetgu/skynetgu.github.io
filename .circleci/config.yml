@@ -1,20 +1,19 @@
 version: 2.1
-orbs:
-  ruby: circleci/ruby@0.1.2 
 
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.6.3-stretch-node
-    executor: ruby/default
+      - image: cimg/ruby:3.0.2
+
     steps:
       - checkout
       - run:
-          name: Which bundler?
-          command: |
-            bundle
-            jekyll serve 
-            scp -r _site root@skynet.red:
-
-
-      - ruby/bundle-install
+          name: install deps
+          command: bundle
+      - run:
+          name: build
+          command: jekyll build
+      - run:
+          name: depoly
+          command: ls -la _site
+      
