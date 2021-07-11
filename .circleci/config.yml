@@ -7,6 +7,9 @@ jobs:
 
     steps:
       - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "b8:e6:2d:61:69:2e:ec:62:41:68:0d:ba:3c:08:fd:ad"
       - run: gem install bundler
       - run:
           name: Which bundler?
