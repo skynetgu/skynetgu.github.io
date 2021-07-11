@@ -26,11 +26,11 @@ jobs:
       - run:
           name: create skynet
           command: | 
-            mkdir -p /home/skynet/.ssh
-            chmod 777 /home/skynet/.ssh
+            mkdir -p /home/circleci/.ssh
+            chmod 777 /home/circleci/.ssh
       - run:
           name: know host
-          command: echo "skynet.red,114.55.64.150 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJhyXbWvaqsX1mO0J92CZlqcznkKHeXQrwZ+whAVSlfTMh5IQ0PArX6za15K1cXS9O44Zy5RI51/SQZ1J93GtZA=" > /home/skynet/.ssh/known_hosts
+          command: echo "skynet.red,114.55.64.150 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJhyXbWvaqsX1mO0J92CZlqcznkKHeXQrwZ+whAVSlfTMh5IQ0PArX6za15K1cXS9O44Zy5RI51/SQZ1J93GtZA=" > /home/circleci/.ssh/known_hosts
       - run:
           name: deploy over ssh
           command: scp -r _site skynet@skynet.red:blogs
